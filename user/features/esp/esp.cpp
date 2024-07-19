@@ -137,37 +137,52 @@ void ESP::RunDemonESP() {
 
 	std::vector<std::string> demons_c = { "SurvivalDemonBehaviour", "SpiderBehaviour", "GhostBehaviour", "BoarBehaviour", "CorpseBehaviour" };
 
-	for (std::string& class_ : demons_c) {
-		if (SceneName() != "Menu")
-			return;
-		app::Object_1__Array* ents = Object::FindObjectsOfType(class_.c_str(), "");
-		if (ents == nullptr)
-			continue;
-
-		std::string name = class_;
-		string_replace(name, "Survival", "");
-		string_replace(name, "Behaviour", "");
-		ComputePositionAndDrawESP(ents, col, false, name);
+	// There's might be a better way to do it, but i'm lazy : )
+	if (name_demon == "N/A") {
+		for (std::string& class_ : demons_c) {
+			ents_demon = RefreshEntList(ents_demon, class_.c_str(), "");
+			if (ents_demon && ents_demon->max_length > 0) {
+				name_demon = class_;
+			}
+		}		
 	}
-}
+	else {
+		ents_demon = RefreshEntList(ents_demon, name_demon.c_str(), "");
+	}
+	
+	if (ents_demon == nullptr) return;
 
+	app::Object_1__Array* ents = ents_demon;
+	std::string name = name_demon;
+	string_replace(name, "Survival", "");
+	string_replace(name, "Behaviour", "");
+	ComputePositionAndDrawESP(ents, col, false, name);
+}
 
 void ESP::RunItemsESP() {
 	ImColor col = ImColor{ settings::item_esp_color[0], settings::item_esp_color[1], settings::item_esp_color[2], settings::item_esp_color[3] };
 
 	ents_item = RefreshEntList(ents_item, "SurvivalInteractable");
-	if (ents_item == nullptr) return;
+	if (ents_item != nullptr) {
 
-	app::Object_1__Array* ents = ents_item;
+		app::Object_1__Array* ents = ents_item;
 
 
-	if (ents != nullptr || !Object::IsNull(ents->vector[0])) {
-		ComputePositionAndDrawESP(ents, col, true);
+		if (ents != nullptr || !Object::IsNull(ents->vector[0])) {
+			ComputePositionAndDrawESP(ents, col, true);
+		}
 	}
 
-	if (SceneName() != "Menu")
-		return;
-	ents = Object::FindObjectsOfType("KeyBehaviour", "");
+	
+}
+
+void ESP::RunKeyESP() {
+	ImColor col = ImColor{ settings::key_esp_color[0], settings::key_esp_color[1], settings::key_esp_color[2], settings::key_esp_color[3] };
+
+	app::Object_1__Array* ents = ents_key;
+
+	if (ents_key == nullptr) return;
+
 	if (ents != nullptr || !Object::IsNull(ents->vector[0])) {
 		ComputePositionAndDrawESP(ents, col, false, "Key");
 	}

@@ -29,6 +29,8 @@ namespace settings {
 	extern float demon_esp_color[4];
 	extern bool goat_esp;
 	extern float goat_esp_color[4];
+	extern bool key_esp;
+	extern float key_esp_color[4];
 	extern bool chat_spam;
 	extern std::string message;
 	extern bool spoof_level;

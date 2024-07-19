@@ -115,6 +115,18 @@ void DrawVisualsTab() {
 		ImGui::EndPopup();
 	}
 
+	ImGui::Checkbox("Keys ESP", &settings::key_esp);
+	ImGui::SameLine();
+	bool open_kcolor_popup = ImGui::ColorButton("kespcolor", ImVec4(settings::key_esp_color[0], settings::key_esp_color[1], settings::key_esp_color[2], settings::key_esp_color[3]));
+	if (open_kcolor_popup)
+	{
+		ImGui::OpenPopup("kesppop");
+	}
+	if (ImGui::BeginPopup("kesppop")) {
+		ImGui::ColorPicker4("Key ESP color", (float*)&settings::key_esp_color);
+		ImGui::EndPopup();
+	}
+
 	ImGui::Checkbox("Demon ESP", &settings::demon_esp);
 	ImGui::SameLine();
 	bool open_dcolor_popup = ImGui::ColorButton("despcolor", ImVec4(settings::demon_esp_color[0], settings::demon_esp_color[1], settings::demon_esp_color[2], settings::demon_esp_color[3]));

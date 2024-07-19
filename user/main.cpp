@@ -23,7 +23,7 @@
 
 #include "players/players.h"
 
-#define CLIENT_VERSION "4.1"
+#define CLIENT_VERSION "4.2"
 
 // Set the name of your log file here
 extern const LPCWSTR LOG_FILE = L"DevourClient.txt";

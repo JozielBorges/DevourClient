@@ -97,6 +97,7 @@ void __stdcall hNolanBehaviour_Update(app::NolanBehaviour* __this, MethodInfo* m
 	// TEMP FIX #60
 	if (SceneName() != "Menu") {
 		ESP::ents_goat = Object::FindObjectsOfType("GoatBehaviour", "");
+		ESP::ents_key = Object::FindObjectsOfType("KeyInteractable", "");
 	}
 
 	if (settings::spoof_level && IsLocalPlayer(__this)) {
@@ -771,17 +772,20 @@ HRESULT __stdcall hookD3D11Present(IDXGISwapChain* pSwapChain, UINT SyncInterval
 	if (settings::player_esp)
 		ESP::RunPlayersESP();
 
-	if (IsInGame() && !IsSequencePlaying()) {
-		if (settings::goat_esp && SceneName() != "Menu")
+	if (IsInGame() && !IsSequencePlaying() && SceneName() != "Menu") {
+		if (settings::goat_esp)
 			ESP::RunGoatsESP();
 
-		if (settings::item_esp && SceneName() != "Menu")
+		if (settings::item_esp)
 			ESP::RunItemsESP();
+
+		if (settings::key_esp)
+			ESP::RunKeyESP();
 
 		if (settings::demon_esp)
 			ESP::RunDemonESP();
 
-		if (settings::azazel_esp && SceneName() != "Menu")
+		if (settings::azazel_esp)
 			ESP::RunAzazelESP();
 
 		ESP::time_counter += 1;
@@ -791,11 +795,23 @@ HRESULT __stdcall hookD3D11Present(IDXGISwapChain* pSwapChain, UINT SyncInterval
 		}
 	}
 	if (!IsInGame() && SceneName() == "Menu") {
-		if (settings::item_esp) {
-			ESP::ents_azazel	= nullptr;
-			ESP::ents_item		= nullptr;
-			ESP::ents_goat		= nullptr;
-		}
+		if (settings::item_esp)
+			ESP::ents_item = nullptr;
+
+		if (settings::goat_esp)
+			ESP::ents_goat = nullptr;
+
+		if (settings::azazel_esp)
+			ESP::ents_azazel = nullptr;
+
+		if (settings::key_esp)
+			ESP::ents_key = nullptr;
+
+		if (settings::demon_esp) {
+			ESP::ents_demon = nullptr;
+			ESP::name_demon = "N/A";
+		};
+
 	}
 
 

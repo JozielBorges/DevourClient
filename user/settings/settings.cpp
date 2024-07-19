@@ -25,6 +25,8 @@ namespace settings {
 	float demon_esp_color[4] = { 255.f, 0, 0, 255.f };
 	bool goat_esp = false;
 	float goat_esp_color[4] = { 247.f, 156.f, 37.f, 255.f };
+	bool key_esp = false;
+	float key_esp_color[4] = { 251.f,225.f,104.f,255.f };
 
 	bool chat_spam = false;
 	std::string message = "deez nuts";
