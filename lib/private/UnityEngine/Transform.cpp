@@ -1,11 +1,11 @@
 #include "pch-il2cpp.h"
 
 #include "UnityEngine/Transform.h"
+#include <UnityEngine/Object.h>
 
 app::Transform* Transform::GetTransform(app::GameObject* go)
 {
-	if (!go || !app::GameObject_get_transform) return nullptr;
-
+	if (Object::IsNull(reinterpret_cast<app::Object_1*>(go)) || !app::GameObject_get_transform) return nullptr;
 	app::Transform* __transform = app::GameObject_get_transform(go, nullptr);
 
 	return __transform ? __transform : nullptr;
