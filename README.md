@@ -20,6 +20,7 @@ Not detected.
 * Azazel Skeleton ESP
 * Azazel Snapline
 * Item ESP
+* Keys ESP
 * Demon ESP
 * Goat/Rat ESP
 * Spawn any item
