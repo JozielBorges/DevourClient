@@ -33,9 +33,9 @@ app::Vector3 Transform::GetRight(app::Transform* transform)
 	return app::Transform_get_right(transform, nullptr);
 }
 
-app::Vector3 Transform::GetEulerAngles(app::Quaternion__Boxed rotation)
+app::Vector3 Transform::GetEulerAngles(app::Quaternion* rotation)
 {
-	return app::Quaternion_get_eulerAngles(&rotation, nullptr);
+	return app::Quaternion_get_eulerAngles(rotation, nullptr);
 }
 
 app::Quaternion Transform::QuaternionEuler(app::Vector3 eulerAngles)
